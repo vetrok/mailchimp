@@ -12,5 +12,20 @@
  */
 
 return array(
-    // ...
+    'mailChimpAPIKey' => "da2c97c537bea893b871bdcd4ed8e00f-us15",
+    'doctrine' => array(
+        'connection' => array(
+            // default connection name
+            'orm_default' => array(
+                'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
+                'params' => array(
+                    'host'     => 'localhost',
+                    'port'     => '3306',
+                    'user'     => 'root',
+                    'password' => 'root',
+                    'dbname'   => 'mailchimp',
+                )
+            )
+        )
+    ),
 );

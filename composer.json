@@ -10,6 +10,10 @@
     "require": {
         "php": ">=5.5",
         "zendframework/zendframework": "~2.5",
-        "sammaye/mailchimp": "^1.4"
+        "sammaye/mailchimp": "^1.4",
+        "doctrine/doctrine-orm-module": "^1.0"
+    },
+    "require-dev": {
+        "zendframework/zend-developer-tools": "^1.0"
     }
 }

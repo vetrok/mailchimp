@@ -10,6 +10,30 @@
 namespace Application;
 
 return array(
+
+    'doctrine' => array(
+        'driver' => array(
+            // defines an annotation driver with two paths, and names it `my_annotation_driver`
+            'application_entity' => array(
+                'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+                'cache' => 'array',
+                'paths' => array(
+                    __DIR__ . '/../src/Application/Model/Doctrine'
+
+                ),
+            ),
+
+            // default metadata driver, aggregates all other drivers into a single one.
+            // Override `orm_default` only if you know what you're doing
+            'orm_default' => array(
+                'drivers' => array(
+                    // register `my_annotation_driver` for any entity under namespace `My\Namespace`
+                    'Application\Model\Doctrine' => 'application_entity'
+                )
+            )
+        )
+    ),
+
     'router' => array(
         'routes' => array(
             'home' => array(
@@ -19,6 +43,16 @@ return array(
                     'defaults' => array(
                         'controller' => 'Application\Controller\Index',
                         'action'     => 'index',
+                    ),
+                ),
+            ),
+            'sync' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/sync',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action'     => 'sync',
                     ),
                 ),
             ),
@@ -75,7 +109,7 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Index' => Controller\IndexController::class
+            'Application\Controller\Index' => Controller\IndexController::class,
         ),
     ),
     'view_manager' => array(
