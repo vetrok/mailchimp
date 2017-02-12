@@ -1,6 +1,8 @@
+Main page is with users list located at '/'
+
 System requires API key for Mailchimo, please fill it in \config\autoload\global.php
 
-Please disable errors, because it can blocks redirects from "/sync" page
+Please disable all errors, because it can block redirects from "/sync" to home page
 
 Database structure
 
