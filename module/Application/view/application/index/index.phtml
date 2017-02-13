@@ -1,48 +1,60 @@
-<div class="row">
+
     <?php
+    $flash = $this->flashMessenger();
+    echo $flash->render('error',   array('alert', 'alert-dismissible', 'alert-danger'));
+    echo $flash->render('success', array('alert', 'alert-dismissible', 'alert-success'));
     if (!empty($users)) {
         ?>
-        <div class="col-md-1">#</div>
-        <div class="col-md-4">Email</div>
-        <div class="col-md-4">First Name</div>
-        <div class="col-md-3">Last Name</div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Email</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+            </tr>
+        </thead>
+        <tbody>
         <?php
         $sm = $this->getHelperPluginManager()->getServiceLocator();
         $counter = 1;
         $escaper = new Zend\Escaper\Escaper('utf-8');
         foreach ($users as $userKey => $user) {
             ?>
-            <div class="col-md-1">
-                <?php
-                echo $counter;
-                ?>
-            </div>
-            <div class="col-md-4">
+
+            <tr>
+                <th scope="row">
+                    <?php
+                    echo $counter;
+                    ?>
+                </th>
+            <td>
                 <?php
                 echo $escaper->escapeHtml($user->getEmail());
                 ?>
-            </div>
+            </td>
             <?php
             ?>
-            <div class="col-md-4">
+            <td>
                 <?php
                 echo $escaper->escapeHtml($user->getFirstName());
                 ?>
-            </div>
-            <div class="col-md-3">
+            </td>
+            <td>
                 <?php
                 echo $escaper->escapeHtml($user->getLastName());
                 ?>
-            </div>
+            </td>
         <?php
             $counter++;
         }
         ?>
-        </div>
+        </tbody>
         <?php
     }
     ?>
+    </table>
 <form action="/sync" method="POST">
-    <button type="submit">Synchronize</button>
+    <button type="submit" class="btn-primary">Synchronize</button>
 </form>
-</div>
+
