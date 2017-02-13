@@ -43,6 +43,9 @@ class IndexController extends AbstractActionController
         $em = $this->getEntityManager();
         $allUsers = $em->getRepository('\Application\Model\Doctrine\Users')->findAll();
 
+
+
+
         return new ViewModel(array('users' => $allUsers));
     }
 
@@ -79,21 +82,21 @@ class IndexController extends AbstractActionController
             if (!empty($subscribers)) {
                 foreach ($subscribers as $subscriber) {
                     $user = new Users();
-                    $user->setEmail($subscriber['email']);
-                    $user->setFirstName($subscriber['first_name']);
-                    $user->setLastName($subscriber['last_name']);
+                    $user->setEmail($subscriber['email'] ? : '');
+                    $user->setFirstName($subscriber['first_name'] ? : '');
+                    $user->setLastName($subscriber['last_name'] ? : '');
                     $em->persist($user);
                     $em->flush();
                 }
             }
-        } catch (\Exception $e) {
-            $errorMsg = 'Can\'t synchronize, please try later';
-        } finally {
 
+            //If everything success add message
+            $this->flashMessenger()->addSuccessMessage('Synchronized!');
+        } catch (\Exception $e) {
+            $this->flashMessenger()->addErrorMessage('Can\'t synchronize data. Please try later or contact administrator');
+        } finally {
             //Redirect back to users list
-            return $this->redirect()->toRoute('home', array(
-                'errorMsg' => isset($errorMsg) ? $errorMsg : null
-            ));
+            return $this->redirect()->toRoute('home');
         }
     }
 }
