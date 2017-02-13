@@ -28,4 +28,8 @@ return array(
             )
         )
     ),
+    'phpSettings' => array(
+        'display_startup_errors' => false,
+        'display_errors' => false,
+    ),
 );

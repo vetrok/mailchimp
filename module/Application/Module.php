@@ -16,9 +16,20 @@ class Module
 {
     public function onBootstrap(MvcEvent $e)
     {
-        $eventManager        = $e->getApplication()->getEventManager();
+        $app = $e->getApplication();
+        $eventManager        = $app->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
+
+        //Enable php configuration from file
+        $sm = $app->getServiceManager();
+        $config = $sm->get('Config');
+        $phpSettings = isset($config['phpSettings']) ? $config['phpSettings'] : array();
+        if(!empty($phpSettings)) {
+            foreach($phpSettings as $key => $value) {
+                ini_set($key, $value);
+            }
+        }
     }
 
     public function getConfig()
