@@ -43,9 +43,6 @@ class IndexController extends AbstractActionController
         $em = $this->getEntityManager();
         $allUsers = $em->getRepository('\Application\Model\Doctrine\Users')->findAll();
 
-
-
-
         return new ViewModel(array('users' => $allUsers));
     }
 
